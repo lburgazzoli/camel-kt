@@ -1,7 +1,20 @@
+buildscript {
+    repositories {
+        maven { url 'http://repo.spring.io/plugins-release' }
+    }
+    dependencies {
+        classpath 'io.spring.gradle:propdeps-plugin:0.0.9.RELEASE'
+    }
+}
 
 plugins {
     id "org.jetbrains.kotlin.jvm" version "1.1.51"
 }
+
+apply plugin: 'propdeps'
+apply plugin: 'propdeps-maven'
+apply plugin: 'propdeps-idea'
+apply plugin: 'propdeps-eclipse'
 
 repositories {
     mavenCentral()
@@ -10,7 +23,19 @@ repositories {
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8"
     compile "org.jetbrains.kotlin:kotlin-reflect"
+
+    compile "org.apache.camel:camel-core:2.20.0"
+
+
+    compile "org.apache.camel:camel-spring-boot-starter:2.20.0"
+    compile "org.apache.camel:camel-core-starter:2.20.0"
+
+    testCompile "org.springframework.boot:spring-boot-starter:1.5.8.RELEASE"
+    testCompile "org.springframework.boot:spring-boot-test:1.5.8.RELEASE"
     testCompile "org.jetbrains.kotlin:kotlin-test"
     testCompile "org.jetbrains.kotlin:kotlin-test-junit"
+
+    optional "org.springframework.boot:spring-boot-configuration-processor:1.5.8.RELEASE"
 }
 
+compileJava.dependsOn(processResources)
