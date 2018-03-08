@@ -16,7 +16,6 @@
 package com.github.lburgazzoli.camel.kt.support.routes
 
 import com.github.lburgazzoli.camel.kt.support.from
-import org.apache.camel.model.RouteDefinition
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.context.annotation.Bean
@@ -26,7 +25,7 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 open class CamelRoutesDslMain {
     @Bean
-    open fun myRoute() : RouteDefinition = from("direct:start") {
+    open fun myRoute() = from("direct:start") {
         to("mock:result-1")
     }
 }
