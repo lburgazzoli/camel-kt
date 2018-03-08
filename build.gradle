@@ -8,7 +8,7 @@ buildscript {
 }
 
 plugins {
-    id "org.jetbrains.kotlin.jvm" version "1.1.51"
+    id "org.jetbrains.kotlin.jvm" version "1.2.30"
 }
 
 apply plugin: 'propdeps'
@@ -24,18 +24,16 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8"
     compile "org.jetbrains.kotlin:kotlin-reflect"
 
-    compile "org.apache.camel:camel-core:2.20.0"
-
-
-    compile "org.apache.camel:camel-spring-boot-starter:2.20.0"
-    compile "org.apache.camel:camel-core-starter:2.20.0"
+    compile "org.apache.camel:camel-core:2.20.2"
+    compile "org.apache.camel:camel-spring-boot-starter:2.20.2"
+    compile "org.apache.camel:camel-core-starter:2.20.2"
 
     testCompile "org.springframework.boot:spring-boot-starter:1.5.8.RELEASE"
     testCompile "org.springframework.boot:spring-boot-test:1.5.8.RELEASE"
     testCompile "org.jetbrains.kotlin:kotlin-test"
     testCompile "org.jetbrains.kotlin:kotlin-test-junit"
 
-    optional "org.springframework.boot:spring-boot-configuration-processor:1.5.8.RELEASE"
+    optional "org.springframework.boot:spring-boot-configuration-processor:1.5.10.RELEASE"
 }
 
 compileJava.dependsOn(processResources)

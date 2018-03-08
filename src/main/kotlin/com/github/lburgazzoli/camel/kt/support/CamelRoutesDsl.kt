@@ -15,10 +15,12 @@
  */
 package com.github.lburgazzoli.camel.kt.support
 
+import org.apache.camel.model.RouteDefinition
 import org.apache.camel.model.RoutesDefinition
 
-fun routes(init: RoutesDefinition.() -> Any): RoutesDefinition {
-    val definition = RoutesDefinition()
+fun from(from: String, init: RouteDefinition.() -> Any): RouteDefinition {
+    val definition = RoutesDefinition().route()
+    definition.from(from)
     definition.init()
 
     return definition

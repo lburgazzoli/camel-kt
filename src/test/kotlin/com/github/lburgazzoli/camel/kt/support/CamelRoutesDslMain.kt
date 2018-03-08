@@ -15,13 +15,21 @@
  */
 package com.github.lburgazzoli.camel.kt.support.routes
 
+import com.github.lburgazzoli.camel.kt.support.from
+import org.apache.camel.model.RouteDefinition
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
+import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @EnableAutoConfiguration
 @Configuration
-open class CamelRoutesDslMain
+open class CamelRoutesDslMain {
+    @Bean
+    open fun myRoute() : RouteDefinition = from("direct:start") {
+        to("mock:result-1")
+    }
+}
 
 fun main(args: Array<String>) {
     SpringApplication.run(CamelRoutesDslMain::class.java, *args)

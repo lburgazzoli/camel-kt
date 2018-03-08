@@ -17,15 +17,16 @@ package com.github.lburgazzoli.camel.kt.support
 
 import org.apache.camel.CamelContext
 import org.apache.camel.model.RouteDefinition
-import org.apache.camel.model.RoutesDefinition
 import org.apache.camel.spring.boot.CamelAutoConfiguration
+import org.apache.camel.spring.boot.CamelContextConfiguration
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.AutoConfigureAfter
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.context.properties.EnableConfigurationProperties
+import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import javax.annotation.PostConstruct
+import java.util.*
 
 @Configuration
 @AutoConfigureAfter(CamelAutoConfiguration::class)
@@ -33,20 +34,20 @@ import javax.annotation.PostConstruct
 @ConditionalOnProperty("com.github.lburgazzoli.camel.kt.enabled", matchIfMissing = true)
 @EnableConfigurationProperties(CamelRoutesDefinitionCollectorConfiguration::class)
 open class CamelRoutesDefinitionCollector {
-    @Autowired
-    lateinit var context: CamelContext
     @Autowired(required = false)
-    lateinit var routesDefinitionList: List<RoutesDefinition>
-    @Autowired(required = false)
-    lateinit var routeDefinitionList: List<RouteDefinition>
+    var definitions: List<RouteDefinition> = Collections.emptyList()
 
-    @PostConstruct
-    fun postConstruct() {
-        routeDefinitionList?.forEach {
-            context.addRouteDefinition(it)
-        }
-        routesDefinitionList?.forEach {
-            context.addRouteDefinitions(it.routes)
+    @Bean
+    open fun camelKtContextConfiguration() : CamelContextConfiguration {
+        return object: CamelContextConfiguration {
+            override fun beforeApplicationStart(camelContext: CamelContext) {
+                definitions?.forEach {
+                    camelContext.addRouteDefinition(it)
+                }
+            }
+
+            override fun afterApplicationStart(camelContext: CamelContext) {
+            }
         }
     }
 }
