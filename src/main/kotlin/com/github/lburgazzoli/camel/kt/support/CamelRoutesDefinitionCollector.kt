@@ -16,9 +16,11 @@
 package com.github.lburgazzoli.camel.kt.support
 
 import org.apache.camel.CamelContext
+import org.apache.camel.model.ModelHelper
 import org.apache.camel.model.RouteDefinition
 import org.apache.camel.spring.boot.CamelAutoConfiguration
 import org.apache.camel.spring.boot.CamelContextConfiguration
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.AutoConfigureAfter
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
@@ -47,6 +49,11 @@ open class CamelRoutesDefinitionCollector {
             }
 
             override fun afterApplicationStart(camelContext: CamelContext) {
+                var logger = LoggerFactory.getLogger(javaClass)
+
+                camelContext.routeDefinitions.forEach {
+                    logger.info("{}", ModelHelper.dumpModelAsXml(camelContext, it))
+                }
             }
         }
     }

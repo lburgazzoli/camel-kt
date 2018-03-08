@@ -28,8 +28,8 @@ dependencies {
     compile "org.apache.camel:camel-spring-boot-starter:2.20.2"
     compile "org.apache.camel:camel-core-starter:2.20.2"
 
-    testCompile "org.springframework.boot:spring-boot-starter:1.5.8.RELEASE"
-    testCompile "org.springframework.boot:spring-boot-test:1.5.8.RELEASE"
+    testCompile "org.springframework.boot:spring-boot-starter:1.5.10.RELEASE"
+    testCompile "org.springframework.boot:spring-boot-test:1.5.10.RELEASE"
     testCompile "org.jetbrains.kotlin:kotlin-test"
     testCompile "org.jetbrains.kotlin:kotlin-test-junit"
 
